@@ -8,10 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { FridgeComponent } from './components/fridge/fridge.component';
 import { EntreesComponent } from './components/entrees/entrees.component';
-import { SecondCoursesComponent } from './components/second-courses/second-courses.component';
 import { DessertComponent } from './components/dessert/dessert.component';
 import { NewUserComponent } from './login/new-user/new-user.component';
 import { RecoverPasswordComponent } from './login/recover-password/recover-password.component';
+import { MainCoursesComponent } from './components/main-courses/main-courses.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +22,10 @@ import { RecoverPasswordComponent } from './login/recover-password/recover-passw
     AddProductComponent,
     FridgeComponent,
     EntreesComponent,
-    SecondCoursesComponent,
     DessertComponent,
     NewUserComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    MainCoursesComponent
   ],
   imports: [
     BrowserModule
