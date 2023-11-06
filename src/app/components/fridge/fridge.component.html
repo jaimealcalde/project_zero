@@ -1,6 +1,15 @@
 
 <div class="border border-primary border-2 rounded my-4 py-5">
-    <p>fridge works!</p>
+    <p *ngIf="clean">fridge works!</p>
+    <ul *ngFor="let ingredient of fridge; let i = index">{{show(ingredient)}}</ul>
 </div>
 
-<app-add-product></app-add-product>
+<form class="row g-3">
+    <div class="col-auto">
+        <input type="text" class="form-control" id="product" placeholder="Product" #ingredient>
+        <input type="text" class="form-control" id="description" placeholder="Descripcion" #description>
+    </div>
+    <div class="col-auto">
+        <input type="button" value="Add product" class="btn btn-primary mb-3" (click)="addProduct(ingredient, description)"/>
+    </div>
+</form>
