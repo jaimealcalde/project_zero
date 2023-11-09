@@ -1,7 +1,9 @@
 
 <div class="border border-primary border-2 rounded my-4 py-5">
     <p *ngIf="clean">fridge works!</p>
-    <ul *ngFor="let ingredient of fridge; let i = index">{{show(ingredient)}}</ul>
+    <dl>
+        <dt *ngFor="let ingredient of fridge; let i = index">{{ingredient.ingredient + " " + ingredient.description}}</dt>
+    </dl>
 </div>
 
 <form class="row g-3">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/service/api.service';
 
 @Component({
   selector: 'app-fridge',
@@ -8,34 +9,29 @@ import { Component, OnInit } from '@angular/core';
 export class FridgeComponent {
 
   clean: boolean = false;
-  fridge: object[] =
-    [
-      { ingredient : "Pollo", description: "kilo"},
-      { ingredient : "Conejo", description: "medio kilo"},
-    ];
+  fridge: any;
 
-  constructor() {
-    this.itsClean();
-    console.log(this.fridge);
-  }
+  constructor(public fridgeApi:ApiService) {}
 
-  itsClean() {
-    if (this.fridge.length === 0) {
-      this.clean = true;
-    };
+  ngOnInit(){
+    this.fridgeApi.getApi().subscribe(
+      (res) => {this.fridge = res, console.log(this.fridge)},
+      (err) => {console.log(err)}
+    );
   }
 
   addProduct(ingredient: any, description: any) {
+    let add: object = {
+      ingredient: ingredient.value,
+      description:  description.value,
+      gluten: "false",
+      lactose: "false"
+    }
 
-    let product: string = ingredient.value;
-    let details: string = description.value;
-
-    this.fridge.push({ingredient: product, description: details});
-
-    console.log(this.fridge);
-  }
-
-  show(ingredients: any){
-    return ingredients.ingredient + " " + ingredients.description + "    " + "e" + "X"
+    this.fridgeApi.postApi(add).subscribe(
+      (res) => {
+        this.fridge = res, console.log(res)},
+      (err) => {console.log(err)}
+    );
   }
 }

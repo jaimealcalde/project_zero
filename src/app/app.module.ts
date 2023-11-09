@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './service/api.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -30,7 +31,10 @@ import { MainCoursesComponent } from './components/main-courses/main-courses.com
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    HttpClientModule,
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
