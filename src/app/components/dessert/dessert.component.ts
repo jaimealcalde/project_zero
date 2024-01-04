@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from 'src/app/service/api.service';
+
 
 @Component({
   selector: 'app-dessert',
@@ -6,6 +8,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./dessert.component.css']
 })
 export class DessertComponent {
+  dessert: any;
+  api: string = "/dessert";
 
- 
+  constructor(public dessertApi:ApiService) {}
+
+  ngOnInit(){
+    this.dessertApi.getApi(this.api).subscribe({
+      next: res => {this.dessert = res, console.log(this.dessert)},
+      error: err => {console.log(err)}
+    });
+  }
+
+  addProduct(ingredient: any, description: any) {
+    let add: object = {
+      ingredient: ingredient.value,
+      description:  description.value,
+      gluten: "false",
+      lactose: "false"
+    };
+
+    this.dessertApi.postApi(add, this.api).subscribe({
+      next: res => {
+        this.dessert.push(res.ingredient), console.log(res.ingredient)},
+      error: err => {console.log(err)}
+    });
+  }
 }

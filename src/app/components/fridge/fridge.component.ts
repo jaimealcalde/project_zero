@@ -8,7 +8,6 @@ import { ApiService } from 'src/app/service/api.service';
 })
 export class FridgeComponent {
 
-  clean: boolean = true;
   fridge: any;
   api: string = "/fridge";
 
@@ -16,7 +15,7 @@ export class FridgeComponent {
 
   ngOnInit(){
     this.fridgeApi.getApi(this.api).subscribe({
-      next: res => {this.fridge = res, console.log(this.fridge), this.clean = false},
+      next: res => {this.fridge = res, console.log(this.fridge)},
       error: err => {console.log(err)}
     });
   }

@@ -7,7 +7,6 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./entrees.component.css']
 })
 export class EntreesComponent {
-  clean: boolean = true;
   entrees: any;
   api: string = "/entrees";
 
@@ -15,7 +14,7 @@ export class EntreesComponent {
 
   ngOnInit(){
     this.entreesApi.getApi(this.api).subscribe({
-      next: res => {this.entrees = res, console.log(this.entrees), this.clean = false},
+      next: res => {this.entrees = res, console.log(this.entrees)},
       error: err => {console.log(err)}
     });
   }
