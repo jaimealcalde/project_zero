@@ -1,18 +1,20 @@
 
 <div class="border border-primary border-2 rounded my-4 py-5">
-    <p>entrees works!</p>
+  <p *ngIf="clean">Entrees works!</p>
+  <dl>
+      <dt *ngFor="let ingredient of entrees; let i = index">{{ingredient.ingredient + " " + ingredient.description}}</dt>
+  </dl>
 </div>
 
 
 
 
-
-
 <form class="row g-3">
-    <div class="col-auto">
-      <input type="text" class="form-control" id="product" placeholder="Product">
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-3">Add product</button>
-    </div>
-  </form>
+  <div class="col-auto">
+      <input type="text" class="form-control" id="product" placeholder="Product" #ingredient>
+      <input type="text" class="form-control" id="description" placeholder="Descripcion" #description>
+  </div>
+  <div class="col-auto">
+      <input type="button" value="Add product" class="btn btn-primary mb-3" (click)="addProduct(ingredient, description)"/>
+  </div>
+</form>
