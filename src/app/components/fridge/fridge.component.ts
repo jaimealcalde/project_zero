@@ -10,14 +10,15 @@ export class FridgeComponent {
 
   clean: boolean = false;
   fridge: any;
+  api: string = "/fridge";
 
   constructor(public fridgeApi:ApiService) {}
 
   ngOnInit(){
-    this.fridgeApi.getApi().subscribe(
-      (res) => {this.fridge = res, console.log(this.fridge)},
-      (err) => {console.log(err)}
-    );
+    this.fridgeApi.getApi(this.api).subscribe({
+      next: res => {this.fridge = res, console.log(this.fridge)},
+      error: err => {console.log(err)}
+    });
   }
 
   addProduct(ingredient: any, description: any) {
@@ -26,12 +27,12 @@ export class FridgeComponent {
       description:  description.value,
       gluten: "false",
       lactose: "false"
-    }
+    };
 
-    this.fridgeApi.postApi(add).subscribe(
-      (res) => {
-        this.fridge = res, console.log(res)},
-      (err) => {console.log(err)}
-    );
+    this.fridgeApi.postApi(add, this.api).subscribe({
+      next: res => {
+        this.fridge.push(res.ingredient), console.log(res.ingredient)},
+      error: err => {console.log(err)}
+    });
   }
 }
