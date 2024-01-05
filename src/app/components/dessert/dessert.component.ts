@@ -15,7 +15,7 @@ export class DessertComponent {
 
   ngOnInit(){
     this.dessertApi.getApi(this.api).subscribe({
-      next: res => {this.dessert = res, console.log(this.dessert)},
+      next: res => {this.dessert = res},
       error: err => {console.log(err)}
     });
   }
@@ -30,8 +30,13 @@ export class DessertComponent {
 
     this.dessertApi.postApi(add, this.api).subscribe({
       next: res => {
-        this.dessert.push(res.ingredient), console.log(res.ingredient)},
+        this.dessert.push(res.ingredient)},
       error: err => {console.log(err)}
     });
+  }
+
+  deleteProduct(i: any){
+    console.log(i._id);
+
   }
 }

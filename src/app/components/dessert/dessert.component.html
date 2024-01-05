@@ -1,16 +1,21 @@
 <h3 class="mt-3">Dessert</h3>
 <div class="border border-primary border-2 rounded my-4 py-5">
   <dl>
-      <dt *ngFor="let ingredient of dessert; let i = index">{{ingredient.ingredient + " " + ingredient.description}}</dt>
+      <dt *ngFor="let ingredient of dessert; let i = index">
+        {{ingredient.ingredient + " " + ingredient.description}}
+        <input type="button" value="X" class="btn btn-secondary" 
+        style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .50rem;"
+        (click)="deleteProduct(ingredient)">
+      </dt>
   </dl>
 </div>
-h
+
 <form class="row g-3">
-3  <div class="col-auto">
+  <div class="col-auto">
       <input type="text" class="form-control" id="product" placeholder="Product" #ingredient>
       <input type="text" class="form-control" id="description" placeholder="Descripcion" #description>
   </div>
   <div class="col-auto">
       <input type="button" value="Add product" class="btn btn-primary mb-3" (click)="addProduct(ingredient, description)"/>
   </div>
-></form>
+</form>
