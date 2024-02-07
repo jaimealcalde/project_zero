@@ -4,9 +4,13 @@
       <dt *ngFor="let ingredient of dessert; let i = index">
         {{ingredient.ingredient + " " + ingredient.description}}
         <input type="button" value="X" class="btn btn-secondary" 
-        style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .50rem;"
+        style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .50rem;"
         (click)="deleteProduct(ingredient)">
+        <input type="button" value="E" class="btn btn-secondary" 
+        style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .3rem; --bs-btn-font-size: .50rem;"
+        (click)="updateProduct(ingredient)">
       </dt>
+      
   </dl>
 </div>
 

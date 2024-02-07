@@ -36,7 +36,21 @@ export class DessertComponent {
   }
 
   deleteProduct(i: any){
-    console.log(i._id);
+    let id: string = i._id;
 
+    this.dessertApi.deleteApi(id, this.api).subscribe({
+      next: res => {
+        console.log(res);
+        this.ngOnInit();
+      },
+      error: err => {console.log(err)}
+    });
+    this.dessert
+  }
+
+  updateProduct(i: any){
+
+    let id: string = i._id;
+    console.log()
   }
 }

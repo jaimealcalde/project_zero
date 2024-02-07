@@ -33,4 +33,22 @@ export class EntreesComponent {
       error: err => {console.log(err)}
     });
   }
+
+  deleteProduct(i: any){
+    let id: string = i._id;
+
+    this.entreesApi.deleteApi(id, this.api).subscribe({
+      next: res => {
+        console.log(res);
+        this.ngOnInit();
+      },
+      error: err => {console.log(err)}
+    });
+  }
+
+  updateProduct(i: any){
+
+    let id: string = i._id;
+    console.log()
+  }
 }

@@ -17,4 +17,7 @@ export class ApiService {
   public postApi(add: any, api: string): Observable <any> {
     return this.http.post<any>(this.API_SERVER + api, add )
   }
+  public deleteApi(id: any, api: any): Observable <any> {
+    return this.http.delete<any>(this.API_SERVER + api + "/" + id)
+  }
 }
