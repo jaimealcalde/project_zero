@@ -9,13 +9,15 @@ import { ApiService } from 'src/app/service/api.service';
 export class EntreesComponent {
   entrees: any;
   api: string = "/entrees";
+  isOpen: boolean = false;
+  isClose: boolean = true;
 
   constructor(public entreesApi:ApiService) {}
 
   ngOnInit(){
     this.entreesApi.getApi(this.api).subscribe({
       next: res => {this.entrees = res, console.log(this.entrees)},
-      error: err => {console.log(err)}
+      error: err => {alert("Cargar fallo" + err);}
     });
   }
 
@@ -30,7 +32,7 @@ export class EntreesComponent {
     this.entreesApi.postApi(add, this.api).subscribe({
       next: res => {
         this.entrees.push(res.ingredient), console.log(res.ingredient)},
-      error: err => {console.log(err)}
+      error: err => {alert("Añadir fallo" + err);}
     });
   }
 
@@ -42,13 +44,33 @@ export class EntreesComponent {
         console.log(res);
         this.ngOnInit();
       },
-      error: err => {console.log(err)}
+      error: err => {alert("Borrar fallo" + err);}
     });
   }
 
-  updateProduct(i: any){
+  updateProduct(product: any, description: any, ingredient: any){
+    let entree: object = {
+      product: product.value,
+      description: description.value,
+      editId: ingredient._id
+    }
+      this.entreesApi.editApi(entree, this.api).subscribe({
+        next: res => {
+          this.ngOnInit();
+          this.isOpen = false;
+          this.isClose = true;
+        },
+        error: err => {alert("Editar fallo" + err);}
+      });
+  }
 
-    let id: string = i._id;
-    console.log()
+  openEdit(){
+    this.isOpen = true;
+    this.isClose = false;
+  }
+
+  closeEdit(){
+    this.isOpen = false;
+    this.isClose = true;
   }
 }

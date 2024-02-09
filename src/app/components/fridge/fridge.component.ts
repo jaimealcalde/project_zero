@@ -10,13 +10,15 @@ export class FridgeComponent {
 
   fridge: any;
   api: string = "/fridge";
+  isOpen: boolean = false;
+  isClose: boolean = true;
 
   constructor(public fridgeApi:ApiService) {}
 
   ngOnInit(){
     this.fridgeApi.getApi(this.api).subscribe({
       next: res => {this.fridge = res, console.log(this.fridge)},
-      error: err => {console.log(err)}
+      error: err => {alert("Cargar fallo" + err);}
     });
   }
 
@@ -31,7 +33,7 @@ export class FridgeComponent {
     this.fridgeApi.postApi(add, this.api).subscribe({
       next: res => {
         this.fridge.push(res.ingredient), console.log(res.ingredient)},
-      error: err => {console.log(err)}
+      error: err => {alert("Añadir fallo" + err);}
     });
   }
 
@@ -43,13 +45,33 @@ export class FridgeComponent {
         console.log(res);
         this.ngOnInit();
       },
-      error: err => {console.log(err)}
+      error: err => {alert("Borrar fallo" + err);}
     });
   }
 
-  updateProduct(i: any){
+  updateProduct(product: any, description: any, ingredient: any){
+    let fridge: object = {
+      product: product.value,
+      description: description.value,
+      editId: ingredient._id
+    }
+      this.fridgeApi.editApi(fridge, this.api).subscribe({
+        next: res => {
+          this.ngOnInit();
+          this.isOpen = false;
+          this.isClose = true;
+      },
+        error: err => {alert("Editar fallo" + err);}
+      });
+  }
 
-    let id: string = i._id;
-    console.log()
+  openEdit(){
+    this.isOpen = true;
+    this.isClose = false;
+  }
+
+  closeEdit(){
+    this.isOpen = false;
+    this.isClose = true;
   }
 }

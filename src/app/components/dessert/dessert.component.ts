@@ -10,13 +10,15 @@ import { ApiService } from 'src/app/service/api.service';
 export class DessertComponent {
   dessert: any;
   api: string = "/dessert";
+  isOpen: boolean = false;
+  isClose: boolean = true;
 
   constructor(public dessertApi:ApiService) {}
 
   ngOnInit(){
     this.dessertApi.getApi(this.api).subscribe({
       next: res => {this.dessert = res},
-      error: err => {console.log(err)}
+      error: err => {alert("Cargar fallo" + err);}
     });
   }
 
@@ -31,7 +33,7 @@ export class DessertComponent {
     this.dessertApi.postApi(add, this.api).subscribe({
       next: res => {
         this.dessert.push(res.ingredient)},
-      error: err => {console.log(err)}
+      error: err => {alert("Añadir fallo" + err);}
     });
   }
 
@@ -43,14 +45,35 @@ export class DessertComponent {
         console.log(res);
         this.ngOnInit();
       },
-      error: err => {console.log(err)}
+      error: err => {alert("Borrar fallo" + err);}
     });
-    this.dessert
   }
 
-  updateProduct(i: any){
+  updateProduct(product: any, description: any, ingredient:any){
+    let dessert: object = {
+      product: product.value,
+      description: description.value,
+      editId: ingredient._id
+    }
+      this.dessertApi.editApi(dessert, this.api).subscribe({
+        next: res => {
+          this.ngOnInit();
+          this.isOpen = false;
+          this.isClose = true;
+        },
+        error: err => {
+          alert("Editar fallo" + err);
+        }
+      });
+  }
 
-    let id: string = i._id;
-    console.log()
+  openEdit(){
+    this.isOpen = true;
+    this.isClose = false;
+  }
+
+  closeEdit(){
+    this.isOpen = false;
+    this.isClose = true;
   }
 }
